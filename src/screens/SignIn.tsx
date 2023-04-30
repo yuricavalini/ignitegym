@@ -4,10 +4,11 @@ import { Image, VStack } from 'native-base';
 
 import BackgroundImg from '@assets/background.png';
 import LogoSvg from '@assets/logo.svg';
+import { Input } from '@components';
 
 export function SignIn() {
   return (
-    <VStack flex={1} bg="gray.700">
+    <VStack flex={1} bg="gray.700" px={10}>
       {}
       <Image
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -29,6 +30,13 @@ export function SignIn() {
         <Heading color="gray.100" fontSize="xl" mb={6} fontFamily="heading">
           Acesse sua conta
         </Heading>
+
+        <Input
+          placeholder="E-mail"
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        <Input placeholder="Senha" secureTextEntry />
       </Center>
     </VStack>
   );
