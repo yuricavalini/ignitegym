@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import BackgroundImg from '@assets/background.png';
 import LogoSvg from '@assets/logo.svg';
 import { Button, Input } from '@components';
@@ -18,8 +19,8 @@ export function SignUp() {
     >
       <VStack flex={1} px={10} pb={16}>
         <Image
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           source={BackgroundImg}
+          defaultSource={BackgroundImg}
           alt="Pessoas treinando"
           resizeMode="contain"
           position="absolute"
