@@ -4,4 +4,5 @@ export * from '../components/Group';
 export * from '../components/HomeHeader';
 export * from '../components/Input';
 export * from '../components/Loading';
+export * from '../components/ScreenHeader';
 export * from '../components/UserPhoto';
