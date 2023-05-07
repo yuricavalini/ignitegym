@@ -1,4 +1,5 @@
 import { Button, Input, ScreenHeader, UserPhoto } from '@components';
+import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 import {
   Center,
@@ -6,6 +7,7 @@ import {
   ScrollView,
   Skeleton,
   Text,
+  useToast,
   VStack,
 } from 'native-base';
 import { useState } from 'react';
@@ -18,6 +20,8 @@ export function Profile() {
   const [userPhoto, setUserPhoto] = useState<string>(
     'https://github.com/yuricavalini.png'
   );
+
+  const toast = useToast();
 
   async function handleUserPhotoSelect() {
     setPhotoIsLoading(true);
@@ -34,6 +38,24 @@ export function Profile() {
       }
 
       if (photoSelected.assets[0].uri) {
+        const photoInfo = await FileSystem.getInfoAsync(
+          photoSelected.assets[0].uri,
+          { size: true }
+        );
+
+        if (
+          photoInfo.exists &&
+          photoInfo.size &&
+          photoInfo.size / 1024 / 1024 > 5
+        ) {
+          toast.show({
+            title: 'Essa imagem é muito grande. Escolha uma até 5MB.',
+            placement: 'top',
+            bgColor: 'red.500',
+          });
+          return;
+        }
+
         setUserPhoto(photoSelected.assets[0].uri);
       }
     } catch (error) {
