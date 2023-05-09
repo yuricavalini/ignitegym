@@ -6,8 +6,15 @@ import { useNavigation } from '@react-navigation/native';
 import { Center, Heading, Image, ScrollView, Text, VStack } from 'native-base';
 import { Controller, useForm } from 'react-hook-form';
 
+type FormDataProps = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
 export function SignUp() {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm<FormDataProps>();
 
   const navigation = useNavigation();
 
@@ -15,8 +22,13 @@ export function SignUp() {
     navigation.goBack();
   }
 
-  function handleSignUp(data: any) {
-    console.log(data);
+  function handleSignUp({
+    name,
+    email,
+    password,
+    confirmPassword,
+  }: FormDataProps) {
+    console.log({ name, email, password, confirmPassword });
   }
 
   return (
@@ -49,6 +61,9 @@ export function SignUp() {
           <Controller
             control={control}
             name="name"
+            rules={{
+              required: 'Informe o nome.',
+            }}
             render={({ field: { onChange, value } }) => (
               <Input placeholder="Nome" onChangeText={onChange} value={value} />
             )}
