@@ -4,12 +4,22 @@ import LogoSvg from '@assets/logo.svg';
 import { Button, Input } from '@components';
 import { useNavigation } from '@react-navigation/native';
 import { Center, Heading, Image, ScrollView, Text, VStack } from 'native-base';
+import { useState } from 'react';
 
 export function SignUp() {
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+
   const navigation = useNavigation();
 
   function handleGoBack() {
     navigation.goBack();
+  }
+
+  function handleSignUp() {
+    console.log({ name, email, password, confirmPassword });
   }
 
   return (
@@ -39,17 +49,28 @@ export function SignUp() {
             Crie sua conta
           </Heading>
 
-          <Input placeholder="Nome" />
+          <Input placeholder="Nome" onChangeText={setName} />
 
           <Input
             placeholder="E-mail"
             keyboardType="email-address"
             autoCapitalize="none"
+            onChangeText={setEmail}
           />
 
-          <Input placeholder="Senha" secureTextEntry />
+          <Input
+            placeholder="Senha"
+            secureTextEntry
+            onChangeText={setPassword}
+          />
 
-          <Button title="Criar e acessar" />
+          <Input
+            placeholder="Confirmar senha"
+            secureTextEntry
+            onChangeText={setConfirmPassword}
+          />
+
+          <Button title="Criar e acessar" onPress={handleSignUp} />
         </Center>
 
         <Button
